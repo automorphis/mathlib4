@@ -11,8 +11,8 @@ import Mathlib.Logic.Function.Conjugate
 /-!
 # Monoids of functions with composition.
 
-This module is an interface between the algebraic and set-theoretic properties of function
-composition. The basic type class of this module is `CompSemigroup`. A type `F` can instance
+This module is an interface between the algebraic and set-theoretic properties of composing
+self-maps. The basic type class of this module is `CompSemigroup`. A type `F` can instance
 `CompSemigroup` whenever `F` consists of bundled functions and composing elements of `F` agrees with
 composing the unbundled functions. For example, the type `F := V →ₗ[R] V` of `R`-linear
 endomorphisms of a vector space `V` can instance `CompSemigroup` because `LinearMap.comp` merely
@@ -23,9 +23,6 @@ composes the unbundled linear maps.
 * `CompSemigroup`
 * `CompMonoid`
 * `CompGroup`
-
-## Main results
-* `function_commute_iff_commute`
 -/
 
 section Defs
