@@ -4,9 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Michael P. Lane
 -/
 
-import Mathlib.Algebra.Group.Commute.Defs
-import Mathlib.Data.FunLike.Basic
-import Mathlib.Logic.Function.Conjugate
+import Mathlib.Data.Set.Lattice.Image
+import Mathlib.Dynamics.FixedPoints.Basic
 
 /-!
 # Monoids of functions with composition.
@@ -81,6 +80,15 @@ theorem forall_function_commute_iff_isMulCommutative
   constructor
   · exact fun comm ↦ ⟨⟨fun f g ↦ (function_commute_iff_commute f g).mp <| comm f g⟩⟩
   · exact fun inst f g ↦ (function_commute_iff_commute f g).mpr <| inst.is_comm.comm f g
+
+theorem mapsTo_iInter_fixedPoints_of_isMulCommutative
+{F X : Type*} [FunLike F X X] [CompSemigroup F X] [IsMulCommutative F] (f : F)
+: Set.MapsTo f (⋂ g : F, (⇑g).fixedPoints) (⋂ g : F, (⇑g).fixedPoints) := by
+  apply Set.mapsTo_iInter_iInter
+  intro g
+  refine Function.Semiconj.mapsTo_fixedPoints ?_
+  refine (CompSemigroup.function_commute_iff_commute f g).mpr ?_
+  exact IsMulCommutative.is_comm.comm f g
 
 end CompSemigroup
 
